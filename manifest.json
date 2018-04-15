@@ -1,0 +1,12 @@
+{
+  "short_name": "Mealtime",
+  "name": "Judy's Mealtime Regime",
+  "icons": [
+    {
+      "src": "2pdf.jpeg",
+      "type": "image/jpeg",
+      "sizes": "225x225"
+    }
+  ],
+  "start_url": "/Mealtime/index.html?launcher=true"
+}
