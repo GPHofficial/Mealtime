@@ -38,6 +38,28 @@ if ('serviceWorker' in navigator) {
 </script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">	
+
+<style>
+
+</style>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" id="pageTitle">Guardroom</a>
+    </div>
+
+    
+  </div><!-- /.container-fluid -->
+</nav>
+
 <div class="container-fluid">
 <div class="table-responsive">
   <table class="table" id="membertable">
@@ -77,8 +99,10 @@ if ('serviceWorker' in navigator) {
     </tbody>
   </table>
 </div>
-  <button id="share">Share on WhatsApp</button>
-
+<div class="">
+  <button type="button" class="btn btn-primary btn-block" id="share">Share on WhatsApp</button>
+</div>
+<br ><hr><br>
   <form>
   <div class="form-group">
     <label for="GuardroomName">Guardroom Name</label>
@@ -86,7 +110,7 @@ if ('serviceWorker' in navigator) {
   </div>
   <button type="button" class="btn btn-default" id="saveGuardroomName">Save</button>
 </form>
-
+<br ><hr><br>
 <form>
   <div class="form-group">
     <label for="exampleInputEmail1">Add new member (Rank + Name)</label>
@@ -94,7 +118,7 @@ if ('serviceWorker' in navigator) {
   </div>
   <button type="button" class="btn btn-default" id="saveMemberName">Add</button>
 </form>
-
+<br ><hr><br>
 
 <form>
   <div class="form-group">
@@ -232,6 +256,7 @@ function replaceMemberStorageState(updateMember){
 }
 
 function initializePage(){
+	
 	$('#membertable > tbody').html('');
 	var membersJSONString = localStorage.getItem('membersState');
   	if(membersJSONString) //exists
@@ -247,6 +272,7 @@ function initializePage(){
 	var guardroomname = JSON.parse(localStorage.getItem('name'));
 	if(guardroomname){
 		$("#GuardroomName").val(guardroomname);
+		$("#pageTitle").text(guardroomname + " Guardroom");
 	}
 	
 }
@@ -311,6 +337,7 @@ $("#share").click(function() {
 $( "#saveGuardroomName" ).click(function() {
   	var name = $("#GuardroomName").val();
 	localStorage.setItem('name', JSON.stringify(name));
+	initializePage();
 });
 
 $("#deleteModalBtn").click(function(e){
