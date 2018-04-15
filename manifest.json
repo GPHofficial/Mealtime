@@ -8,6 +8,9 @@
       "sizes": "any"
     }
   ],
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF", 
   "display": "standalone",
-  "start_url": "/Mealtime/index.html?launcher=true"
+  "start_url": "/Mealtime/index.html?launcher=true",
+  "orientation": "portrait"
 }
