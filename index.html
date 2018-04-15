@@ -1,0 +1,273 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">	
+
+<div class="table-responsive">
+  <table class="table" id="membertable">
+    <thead>
+    	<tr>
+    		<td></td>
+    		<td>Breakfast</td>
+    		<td>Lunch</td>
+    		<td>Dinner</td>
+    	</tr>
+    	<tr>
+    		<td>Carry forward</td>
+    		<td>
+    			<div class="checkbox">
+				    <label>
+				      <input type="checkbox">
+				    </label>
+			  	</div>
+			</td>
+    		<td>
+    			<div class="checkbox">
+				    <label>
+				      <input type="checkbox">
+				    </label>
+			  	</div>
+			</td>
+			<td>
+    			<div class="checkbox">
+				    <label>
+				      <input type="checkbox">
+				    </label>
+			  	</div>
+			</td>
+    	</tr>
+    </thead>
+    <tbody>
+    	<tr>
+    		<td>LCP Puay Hiang</td>
+    		<td>
+    			<div class="checkbox">
+				    <label>
+				      <input type="checkbox">
+				    </label>
+			  	</div>
+			</td>
+    		<td>
+    			<div class="checkbox">
+				    <label>
+				      <input type="checkbox">
+				    </label>
+			  	</div>
+			</td>
+			<td>
+    			<div class="checkbox">
+				    <label>
+				      <input type="checkbox">
+				    </label>
+			  	</div>
+			</td>
+    	</tr>
+    </tbody>
+  </table>
+
+  <button id="share">Share on WhatsApp</button>
+
+  <form>
+  <div class="form-group">
+    <label for="GuardroomName">Guardroom Name</label>
+    <input type="text" class="form-control" id="GuardroomName" placeholder="e.g. SGC">
+  </div>
+  <button type="button" class="btn btn-default" id="saveGuardroomName">Save</button>
+</form>
+
+<form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Add new member (Rank + Name)</label>
+    <input type="text" class="form-control" id="MemberName" placeholder="e.g. CPL Samuel">
+  </div>
+  <button type="button" class="btn btn-default" id="saveMemberName">Add</button>
+</form>
+
+</div>
+
+<script>
+var checkbox = '<td><div class="checkbox"><label><input type="checkbox"></label></div></td>';
+var checkboxChecked = '<td><div class="checkbox"><label><input type="checkbox" checked></label></div></td>';
+
+
+$("#membertable>thead>tr:last").click(function(e){     //saves member state
+
+	if(this.cells[1].children[0].children[0].children[0].checked)
+		carryForward(1)
+	if(this.cells[2].children[0].children[0].children[0].checked)
+		carryForward(2)
+	if(this.cells[3].children[0].children[0].children[0].checked)
+		carryForward(3)
+	this.cells[1].children[0].children[0].children[0].checked = false;
+	this.cells[2].children[0].children[0].children[0].checked = false;
+	this.cells[3].children[0].children[0].children[0].checked = false;
+});
+
+function carryForward(Flag){
+	var memberstable = $("#membertable").find("tbody>tr");
+	for (var i = 0;i<memberstable.length;i++){
+		var membername = memberstable[i].cells[0].innerText;
+
+		if(Flag == 1){//breakfastToLunch
+			memberstable[i].cells[2].children[0].children[0].children[0].checked = memberstable[i].cells[1].children[0].children[0].children[0].checked;
+			
+		}
+		if(Flag == 2){//lunchToDinner
+			memberstable[i].cells[3].children[0].children[0].children[0].checked = memberstable[i].cells[2].children[0].children[0].children[0].checked;
+			
+		}
+		if(Flag == 3){//dinnerToBreakfast
+			memberstable[i].cells[1].children[0].children[0].children[0].checked = memberstable[i].cells[3].children[0].children[0].children[0].checked;
+			memberstable[i].cells[2].children[0].children[0].children[0].checked = false;
+			memberstable[i].cells[3].children[0].children[0].children[0].checked = false;
+			
+		}
+		
+		
+	}
+	if(Flag == 1){//breakfastToLunch
+		alert("Breakfast carried forward to Lunch")
+	}
+	if(Flag == 2){//breakfastToLunch
+		alert("Lunch carried forward to Dinner")
+	}
+	if(Flag == 3){//breakfastToLunch
+		alert("Dinner carried forward to Breakfast")
+	}
+	
+	saveTableState();
+}
+
+function saveTableState(){
+	var memberstable = $("#membertable").find("tbody>tr");
+  	for (var i = 0;i<memberstable.length;i++){
+		var membername = memberstable[i].cells[0].innerText;
+		var breakfast = memberstable[i].cells[1].children[0].children[0].children[0].checked
+		var lunch = memberstable[i].cells[2].children[0].children[0].children[0].checked
+		var dinner = memberstable[i].cells[3].children[0].children[0].children[0].checked
+		var member = {"name": membername, "breakfast": breakfast, "lunch": lunch, "dinner": dinner};
+		replaceMemberStorageState(member)
+	}
+}
+
+//Make it possible to update 1 row
+$("#membertable>tbody").click(function(e){     //saves member state
+	console.log("tbody")
+	saveTableState();
+});
+
+function replaceMemberStorageState(updateMember){
+	var stateJSONString = localStorage.getItem('membersState');
+  	if(stateJSONString) //exists
+	{
+		var StateArray = JSON.parse(stateJSONString);
+		var memberPosition = -1;
+		for(var i =0;i<StateArray.length;i++){
+			if(StateArray[i]["name"] ==updateMember["name"]){
+				memberPosition = i;
+				break;
+			}
+		}
+		if (memberPosition > -1) {
+		    StateArray.splice(memberPosition, 1);
+		}
+		StateArray.splice( 0, 0, updateMember );
+		localStorage.setItem('membersState', JSON.stringify(StateArray));
+	}else{
+		localStorage.setItem('membersState', JSON.stringify([updateMember]));
+	}
+}
+
+function initializePage(){
+	var membersJSONString = localStorage.getItem('membersState');
+  	if(membersJSONString) //exists
+	{
+		var members = JSON.parse(membersJSONString);
+		for(var i = 0;i<members.length;i++){
+			var breakfastCheckbox = members[i].breakfast ? checkboxChecked : checkbox;
+			var lunchCheckbox = members[i].lunch ? checkboxChecked : checkbox;
+			var dinnerCheckbox = members[i].dinner ? checkboxChecked : checkbox;
+			$('#membertable > tbody:last-child').append('<tr><td>' + members[i]["name"] + '</td>' + breakfastCheckbox + lunchCheckbox + dinnerCheckbox + '</tr>');
+		}
+	}
+	var guardroomname = JSON.parse(localStorage.getItem('name'));
+	if(guardroomname){
+		$("#GuardroomName").val(guardroomname);
+	}
+	
+}
+
+$( "#saveMemberName" ).click(function() {
+  	var name = $("#MemberName").val();
+  	if(name === ""){
+  		alert("nameless boi")
+  		return;
+  	}
+  	var Member = {"name":name,"breakfast":false,"lunch":false,"dinner":false};
+  	var stateJSONString = localStorage.getItem('membersState');
+  	if(stateJSONString) //exists
+	{
+		var StateArray = JSON.parse(stateJSONString);
+		var memberPosition = -1;
+		for(var i =0;i<StateArray.length;i++){
+			if(StateArray[i]["name"] ==Member["name"]){
+				alert("Member already exists")
+				return;
+			}
+		}
+	}
+	$('#membertable > tbody:last-child').append('<tr><td>' + name + '</td>' + checkbox + checkbox + checkbox + '</tr>');
+	saveTableState();
+	$("#MemberName").val("");
+});
+
+//TODO
+//Edge case of present member but all meals undone not resolved
+$("#share").click(function() {
+
+	var guardroomname = JSON.parse(localStorage.getItem('name'));
+	if(!guardroomname){
+		alert("no guardroom name registered")
+		return;
+	}
+
+	var memberstable = $("#membertable").find("tbody>tr");
+	var membersStatus = "";
+	for (var i = 0;i<memberstable.length;i++){
+		var membername = memberstable[i].cells[0].innerText;
+		var breakfast = memberstable[i].cells[1].children[0].children[0].children[0].checked ? "done" : "x"
+		var lunch = memberstable[i].cells[2].children[0].children[0].children[0].checked ? "done" : "x"
+		var dinner = memberstable[i].cells[3].children[0].children[0].children[0].checked ? "done" : "x"
+		if(!(breakfast == "x" && lunch == "x" && dinner == "x" )){
+			membersStatus += membername + " (" + breakfast + " breakfast, " + lunch + " lunch, " + dinner + " dinner) \n";
+		}
+		
+	}
+
+	var today = new Date();
+	var options = {  year: '2-digit', month: '2-digit', day: '2-digit' };
+
+	var text = guardroomname + " " + today.toLocaleDateString('en-SG', options).split('/').join('') + " \n" + membersStatus;
+
+	window.location.href = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text);
+	console.log(text);
+});
+
+$( "#saveGuardroomName" ).click(function() {
+  	var name = $("#GuardroomName").val();
+	localStorage.setItem('name', JSON.stringify(name));
+});
+
+initializePage();
+</script>
+
