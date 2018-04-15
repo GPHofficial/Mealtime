@@ -21,6 +21,11 @@
       "src": "/Mealtime/2pdf.svg",  
       "sizes": "512x512",  
       "type": "image/svg"  
+    },
+    {
+      "src": "/Mealtime/2pdf.jpeg",  
+      "sizes": "225x225",  
+      "type": "image/jpeg"  
     }
   ],
   "background_color": "#FFFFFF",
