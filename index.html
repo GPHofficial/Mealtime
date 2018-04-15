@@ -40,19 +40,15 @@ if ('serviceWorker' in navigator) {
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">	
 
 <style>
-
+.centerPage{
+	text-align: center;
+}
 </style>
 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
       <a class="navbar-brand" href="#" id="pageTitle">Guardroom</a>
     </div>
 
@@ -128,9 +124,24 @@ if ('serviceWorker' in navigator) {
   		Delete
 	</button>
 </form>
+
+
+<br ><hr><br>
+
+<form>
+  <div class="form-group">
+    <label>Tutorial</label>
+  </div>
+	<button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">Start Tutorial</button>
+</form>
 </div>
 
-<br>
+<br ><hr>
+
+<p class="centerPage">Copyright <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span> 2018 Goh Puay Hiang</p>
+
+<br >
+
 <!-- Button trigger modal -->
 
 
@@ -160,6 +171,26 @@ if ('serviceWorker' in navigator) {
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-danger" id="deleteBtn">Delete</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    	<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Tutorial</h4>
+      </div>
+      	<br />
+      	<ol>
+	  		<li>Set Guardroom Name</li>
+	  		<li>Add Guardroom Members</li>
+	  		<li>Select Members that have completed mealtime regime</li>
+	  		<li>Share on WhatsApp</li>
+	  		<li>Carry Forward</li>
+	  		<li>???. Profit</li>
+		</ol>
     </div>
   </div>
 </div>
@@ -258,7 +289,12 @@ function replaceMemberStorageState(updateMember){
 }
 
 function initializePage(){
-	
+	var onboardingString = localStorage.getItem('onboarding');
+	if(onboardingString){
+		$("#bs-example-modal-lg").modal('show');
+		localStorage.setItem('onboarding',true);
+	}
+
 	$('#membertable > tbody').html('');
 	var membersJSONString = localStorage.getItem('membersState');
   	if(membersJSONString) //exists
