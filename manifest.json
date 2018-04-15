@@ -8,5 +8,6 @@
       "sizes": "any"
     }
   ],
+  "display": "standalone"
   "start_url": "/Mealtime/index.html?launcher=true"
 }
