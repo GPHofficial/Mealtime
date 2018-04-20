@@ -7,6 +7,10 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+<!-- WhatsApp icon -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/brands.css" integrity="sha384-KtmfosZaF4BaDBojD9RXBSrq5pNEO79xGiggBxf8tsX+w2dBRpVW5o0BPto2Rb2F" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/fontawesome.css" integrity="sha384-8WwquHbb2jqa7gKWSoAwbJBV2Q+/rQRss9UXL5wlvXOZfSodONmVnifo/+5xJIWX" crossorigin="anonymous">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- Latest compiled and minified JavaScript -->
@@ -43,13 +47,30 @@ if ('serviceWorker' in navigator) {
 .centerPage{
 	text-align: center;
 }
+/*
+.btn-whatsapp{
+	background: #25d366;
+}
+*/
+
+.btn-link{
+	padding:0;
+}
+/*
+.btn-tooltip{
+	color:#FFF;
+}
+*/
+td div.checkbox{
+	margin: 0;
+}
 </style>
 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <a class="navbar-brand" href="#" id="pageTitle">Guardroom</a>
+      <a class="navbar-brand" href="#" id="pageTitle">Mealtime Regime</a>
     </div>
 
     
@@ -67,7 +88,7 @@ if ('serviceWorker' in navigator) {
     		<td>Dinner</td>
     	</tr>
     	<tr>
-    		<td>Carry forward</td>
+    		<td>Carry forward <a tabindex="0" class="btn btn-link btn-tooltip" role="button" data-container="body" data-trigger="focus" data-toggle="popover" data-placement="bottom" data-content="Replicate previously checked mealtime to following mealtime">?</a></td>
     		<td>
     			<div class="checkbox">
 				    <label>
@@ -96,7 +117,7 @@ if ('serviceWorker' in navigator) {
   </table>
 </div>
 <div class="">
-  <button type="button" class="btn btn-primary btn-block" id="share">Share on WhatsApp</button>
+  <button type="button" class="btn btn-success btn-whatsapp btn-block" id="share"><i class="fab fa-whatsapp"></i> Share on WhatsApp</button>
 </div>
 <br ><hr><br>
   <form>
@@ -104,7 +125,7 @@ if ('serviceWorker' in navigator) {
     <label for="GuardroomName">Guardroom Name</label>
     <input type="text" class="form-control" id="GuardroomName" placeholder="e.g. SGC">
   </div>
-  <button type="button" class="btn btn-default" id="saveGuardroomName">Save</button>
+  <button type="button" class="btn btn-primary" id="saveGuardroomName">Save</button>
 </form>
 <br ><hr><br>
 <form>
@@ -112,7 +133,7 @@ if ('serviceWorker' in navigator) {
     <label for="exampleInputEmail1">Add new member (Rank + Name)</label>
     <input type="text" class="form-control" id="MemberName" placeholder="e.g. CPL Samuel">
   </div>
-  <button type="button" class="btn btn-default" id="saveMemberName">Add</button>
+  <button type="button" class="btn btn-primary" id="saveMemberName">Add</button>
 </form>
 <br ><hr><br>
 
@@ -120,7 +141,7 @@ if ('serviceWorker' in navigator) {
   <div class="form-group">
     <label>Delete Member</label>
   </div>
-	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteModal" id="deleteModalBtn">
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" id="deleteModalBtn">
   		Delete
 	</button>
 </form>
@@ -132,7 +153,7 @@ if ('serviceWorker' in navigator) {
   <div class="form-group">
     <label>Tutorial</label>
   </div>
-	<button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">Start Tutorial</button>
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Start Tutorial</button>
 </form>
 </div>
 
@@ -290,8 +311,8 @@ function replaceMemberStorageState(updateMember){
 
 function initializePage(){
 	var onboardingString = localStorage.getItem('onboarding');
-	if(onboardingString){
-		$("#bs-example-modal-lg").modal('show');
+	if(!onboardingString){
+		$(".bs-example-modal-lg").modal('show');
 		localStorage.setItem('onboarding',true);
 	}
 
@@ -375,6 +396,7 @@ $("#share").click(function() {
 $( "#saveGuardroomName" ).click(function() {
   	var name = $("#GuardroomName").val();
 	localStorage.setItem('name', JSON.stringify(name));
+	alert("Guardroom name saved.")
 	initializePage();
 });
 
@@ -429,5 +451,8 @@ $("#deleteBtn").click(function(e){
 	$("#deleteModal").modal('hide');
 });
 initializePage();
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
 </script>
 </html>
