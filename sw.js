@@ -26,14 +26,26 @@ self.addEventListener('install', function(event) {
 
 // https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/
 // Stale-while-revalidate strategy
+var fetchRequest = null;
 self.addEventListener('fetch', function(event) {
+  fetchRequest = event.request.clone();
+
   event.respondWith(
     caches.open(CACHE_NAME).then(function(cache) {
-      return cache.match(event.request).then(function(response) {
-        var fetchPromise = fetch(event.request).then(function(networkResponse) {
-          cache.put(event.request, networkResponse.clone());
+
+      return cache.match(fetchRequest).then(function(response) {
+        var fetchPromise = fetch(fetchRequest).then(function(networkResponse) {
+
+          if(!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+              return networkResponse;
+          }
+          var responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then(function(cache) {
+            cache.put(fetchRequest, responseToCache);
+          });
           return networkResponse;
         })
+
         return response || fetchPromise;
       })
     })
