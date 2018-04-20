@@ -23,7 +23,7 @@ self.addEventListener('install', function(event) {
       })
   );
 });
-
+/*
 // https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/
 // Stale-while-revalidate strategy
 var fetchRequest = null;
@@ -52,7 +52,7 @@ self.addEventListener('fetch', function(event) {
     })
   );
 });
-
+/*
 /*
 self.addEventListener('fetch', function(event) {
   event.respondWith(
