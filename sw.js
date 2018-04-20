@@ -1,11 +1,11 @@
-var CACHE_NAME = 'cache-v3-fix';
+var CACHE_NAME = 'cache-v3-fix-fix';
 var urlsToPrefetch = [
 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css',
 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js',
 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
 'https://use.fontawesome.com/releases/v5.0.10/css/brands.css',
-'https://use.fontawesome.com/releases/v5.0.10/css/fontawesome.css'
+'https://use.fontawesome.com/releases/v5.0.10/css/fontawesome.css',
 '/'
 ];
 
