@@ -7,7 +7,7 @@ var urlsToPrefetch = [
 'https://use.fontawesome.com/releases/v5.0.10/css/brands.css',
 'https://use.fontawesome.com/releases/v5.0.10/css/fontawesome.css'
 ];
-
+console.log("does this log");
 //isntall all dependencies
 self.addEventListener('install', function(event) {
   // Perform install steps
