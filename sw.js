@@ -29,7 +29,8 @@ self.addEventListener('install', function(event) {
 var fetchRequest = null;
 self.addEventListener('fetch', function(event) {
   fetchRequest = event.request.clone();
-
+  console.log("fetch")
+  console.dir(event.request)
   event.respondWith(
     caches.open(CACHE_NAME).then(function(cache) {
 
