@@ -1,4 +1,4 @@
-var CACHE_NAME = 'cache-v2-fix';
+var CACHE_NAME = 'cache-v3';
 var urlsToPrefetch = [
 '/',
 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
