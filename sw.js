@@ -1,12 +1,14 @@
-var CACHE_NAME = 'cache-v1';
+var CACHE_NAME = 'cache-v2';
 var urlsToPrefetch = [
 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css',
 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js',
 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-'/'
+'https://use.fontawesome.com/releases/v5.0.10/css/brands.css',
+'https://use.fontawesome.com/releases/v5.0.10/css/fontawesome.css'
 ];
 
+//isntall all dependencies
 self.addEventListener('install', function(event) {
   // Perform install steps
   event.waitUntil(
@@ -22,6 +24,23 @@ self.addEventListener('install', function(event) {
   );
 });
 
+// https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/
+// Stale-while-revalidate strategy
+self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    caches.open(CACHE_NAME).then(function(cache) {
+      return cache.match(event.request).then(function(response) {
+        var fetchPromise = fetch(event.request).then(function(networkResponse) {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        })
+        return response || fetchPromise;
+      })
+    })
+  );
+});
+
+/*
 self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request)
@@ -61,3 +80,4 @@ self.addEventListener('fetch', function(event) {
       })
     );
 });
+*/
